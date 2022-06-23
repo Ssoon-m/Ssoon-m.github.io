@@ -1,7 +1,34 @@
-import React from "react"
+import React, { FunctionComponent } from "react"
 import { graphql } from "gatsby"
-import Text from "../components/text"
-import { Link } from "gatsby"
+import { Global, css } from "@emotion/react"
+import styled from "@emotion/styled"
+
+const globalStyle = css`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-size: 20px;
+  }
+`
+
+const TextStyle = css`
+  font-size: 18px;
+  font-weight: 700;
+  color: red;
+`
+const Text1 = styled.div<{ disable: boolean }>`
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: ${({ disable }) => (disable ? "line-through" : "none")};
+`
+
+const Text2 = styled("div")<{ disable: boolean }>(({ disable }) => ({
+  fontSize: "15px",
+  color: "blue",
+  textDecoration: disable ? "line-through" : "none",
+}))
 
 type InfoPageProps = {
   data: {
@@ -15,19 +42,20 @@ type InfoPageProps = {
   }
 }
 
-const InfoPage: React.FC<InfoPageProps> = ({
+const InfoPage: FunctionComponent<InfoPageProps> = function ({
   data: {
     site: {
       siteMetadata: { title, description, author },
     },
   },
-}) => {
+}) {
   return (
     <div>
-      <Text text={title}></Text>
-      <Text text={description}></Text>
-      <Text text={author}></Text>
-      <Link to="/">To main</Link>
+      {/* emotionjs에서 전역 스타일 변경을 위해 Global 컴포넌트가 있음 */}
+      <Global styles={globalStyle} />
+      <div css={TextStyle}>{title}</div>
+      <Text1 disable={true}>{description}</Text1>
+      <Text2 disable={true}>{author}</Text2>
     </div>
   )
 }
