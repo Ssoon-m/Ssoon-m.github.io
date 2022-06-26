@@ -11,11 +11,15 @@ const FooterWrapper = styled.div`
   line-height: 1.5;
 `
 
+const getCurrentYear = (): number => {
+  return new Date().getFullYear()
+}
+
 const Footer: React.FC = function () {
   return (
     <FooterWrapper>
       Thank You for Visiting My Blog, Have a Good Day 😆
-      <br />© 2021 Developer Hyun, Powered By Gatsby.
+      <br />© {getCurrentYear()} Developer Soon, Powered By Gatsby.
     </FooterWrapper>
   )
 }
