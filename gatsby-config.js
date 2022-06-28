@@ -7,25 +7,31 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: "gatsby-plugin-typescript",
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `contents`,
+        path: `${__dirname}/src/contents`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `src`,
+        path: `${__dirname}/src/`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-typescript',
       options: {
         isTSX: true,
         allExtensions: true,
       },
     },
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `contents`,
-        path: `${__dirname}/contents`,
-      },
-    },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-image`,
     `gatsby-plugin-emotion`,
-
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -43,21 +49,25 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        // Footnotes mode (default: true)
+        footnotes: true,
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
         plugins: [
           {
-            resolve: "gatsby-remark-smartypants",
+            resolve: 'gatsby-remark-smartypants',
             options: {
-              dashes: "oldschool",
+              dashes: 'oldschool',
             },
           },
           {
-            resolve: "gatsby-remark-prismjs",
+            resolve: 'gatsby-remark-prismjs',
             options: {
-              classPrefix: "language-",
+              classPrefix: 'language-',
             },
           },
           {
-            resolve: "gatsby-remark-images",
+            resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 768,
               quality: 100,
@@ -65,14 +75,14 @@ module.exports = {
             },
           },
           {
-            resolve: "gatsby-remark-copy-linked-files",
+            resolve: 'gatsby-remark-copy-linked-files',
             options: {},
           },
           {
-            resolve: "gatsby-remark-external-links",
+            resolve: 'gatsby-remark-external-links',
             options: {
-              target: "_blank",
-              rel: "nofollow",
+              target: '_blank',
+              rel: 'nofollow',
             },
           },
         ],
