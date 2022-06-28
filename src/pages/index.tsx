@@ -1,10 +1,20 @@
-import React from "react"
-import styled from "@emotion/styled"
-import GlobalStyle from "../components/Common/GlobalStyle"
-import Introduction from "../components/Main/Introduction"
-import Footer from "../components/Common/Footer"
-import CategoryList from "../components/Main/CategoryList"
-import PostList from "../components/Main/PostList"
+import React from 'react'
+import styled from '@emotion/styled'
+import GlobalStyle from '../components/Common/GlobalStyle'
+import Introduction from '../components/Main/Introduction'
+import Footer from '../components/Common/Footer'
+import CategoryList from '../components/Main/CategoryList'
+import PostList from '../components/Main/PostList'
+import { PostListItemType } from '../types/PostItem.types'
+import { graphql } from 'gatsby'
+
+interface IndexPageProps {
+  data: {
+    allMarkdownRemark: {
+      edges: PostListItemType[]
+    }
+  }
+}
 
 const CATEGORY_LIST = {
   All: 5,
@@ -18,16 +28,43 @@ const Container = styled.div`
   height: 100%;
 `
 
-const IndexPage: React.FC = function () {
+const IndexPage: React.FC<IndexPageProps> = ({
+  data: {
+    allMarkdownRemark: { edges },
+  },
+}) => {
   return (
     <Container>
       <GlobalStyle />
       <Introduction />
       <CategoryList selectedCategory="Web" categoryList={CATEGORY_LIST} />
-      <PostList />
+      <PostList posts={edges} />
       <Footer />
     </Container>
   )
 }
 
 export default IndexPage
+
+export const getPostList = graphql`
+  query getPostList {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date, frontmatter___title] }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            summary
+            date(formatString: "YYYY.MM.DD.")
+            categories
+            thumbnail {
+              publicURL
+            }
+          }
+        }
+      }
+    }
+  }
+`

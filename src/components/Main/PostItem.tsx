@@ -1,13 +1,8 @@
-import React from "react"
-import styled from "@emotion/styled"
-import { Link } from "gatsby"
-
-type PostItemProps = {
-  title: string
-  date: string
-  categories: string[]
-  summary: string
-  thumbnail: string
+import React from 'react'
+import styled from '@emotion/styled'
+import { Link } from 'gatsby'
+import { PostFrontmatterType } from '../../types/PostItem.types'
+interface PostItemProps extends PostFrontmatterType {
   link: string
 }
 
@@ -90,12 +85,12 @@ const PostItem: React.FC<PostItemProps> = ({
   date,
   categories,
   summary,
-  thumbnail,
+  thumbnail: { publicURL },
   link,
 }) => {
   return (
     <PostItemWrapper to={link}>
-      <ThumbnailImage src={thumbnail} alt="Post Item Image" />
+      <ThumbnailImage src={publicURL} alt="Post Item Image" />
       <PostItemContent>
         <Title>{title}</Title>
         <Date>{date}</Date>
