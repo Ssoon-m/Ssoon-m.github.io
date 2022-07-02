@@ -39,7 +39,7 @@ const useInfiniteScroll = (
       setCount(value => value + 1)
       observer.disconnect()
     },
-    { threshold: 0.1 },
+    { threshold: 0.9 },
   )
 
   useEffect(() => setCount(1), [selectedCategory])
