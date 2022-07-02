@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from '@emotion/styled'
 import GlobalStyle from '../components/Common/GlobalStyle'
 import Introduction from '../components/Main/Introduction'
@@ -6,26 +6,24 @@ import Footer from '../components/Common/Footer'
 import CategoryList from '../components/Main/CategoryList'
 import PostList from '../components/Main/PostList'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
-import { PostListItemType } from '../types/PostItem.types'
+import { PostListItemType, PostFrontmatterType } from '../types/PostItem.types'
 import { graphql } from 'gatsby'
+import queryString, { ParsedQuery } from 'query-string'
 
 interface IndexPageProps {
+  location: {
+    search: string
+  }
   data: {
     allMarkdownRemark: {
       edges: PostListItemType[]
     }
-  }
-  file: {
-    childImageSharp: {
-      gatsbyImageData: IGatsbyImageData
+    file: {
+      childImageSharp: {
+        gatsbyImageData: IGatsbyImageData
+      }
     }
   }
-}
-
-const CATEGORY_LIST = {
-  All: 5,
-  Web: 3,
-  Mobile: 2,
 }
 
 const Container = styled.div`
@@ -35,6 +33,7 @@ const Container = styled.div`
 `
 
 const IndexPage: React.FC<IndexPageProps> = ({
+  location: { search },
   data: {
     allMarkdownRemark: { edges },
     file: {
@@ -42,12 +41,46 @@ const IndexPage: React.FC<IndexPageProps> = ({
     },
   },
 }) => {
+  const parsed: ParsedQuery<string> = queryString.parse(search)
+  // category 프로퍼티 값이 문자열 형태가 아니거나 존재하지 않을 경우 All
+  // 그렇지 않을 경우엔 파싱한 값
+  const selectedCategory: string =
+    typeof parsed.category !== 'string' || !parsed.category
+      ? 'All'
+      : parsed.category
+  const categoryList = useMemo(
+    () =>
+      edges.reduce(
+        (
+          list: CategoryListProps['categoryList'],
+          {
+            node: {
+              frontmatter: { categories },
+            },
+          }: PostListItemType,
+        ) => {
+          categories.forEach(category => {
+            if (list[category] === undefined) list[category] = 1
+            else list[category]++
+          })
+
+          list['All']++
+
+          return list
+        },
+        { All: 0 },
+      ),
+    [],
+  )
   return (
     <Container>
       <GlobalStyle />
       <Introduction profileImage={gatsbyImageData} />
-      <CategoryList selectedCategory="Web" categoryList={CATEGORY_LIST} />
-      <PostList posts={edges} />
+      <CategoryList
+        selectedCategory={selectedCategory}
+        categoryList={categoryList}
+      />
+      <PostList selectedCategory={selectedCategory} posts={edges} />
       <Footer />
     </Container>
   )

@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from '@emotion/styled'
 import PostItem from './PostItem'
 import { PostListItemType } from '../../types/PostItem.types'
+import useInfiniteScroll from '../../hooks/useInfiniteScroll'
+
 interface PostListProps {
+  selectedCategory: string
   posts: PostListItemType[]
 }
 
@@ -21,11 +24,12 @@ const PostListWrapper = styled.div`
   }
 `
 
-const PostList: React.FC<PostListProps> = ({ posts }) => {
+const PostList: React.FC<PostListProps> = ({ selectedCategory, posts }) => {
+  const { containerRef, postList } = useInfiniteScroll(selectedCategory, posts)
   return (
-    <PostListWrapper>
-      {posts.map(({ node: { id, frontmatter } }: PostListItemType) => (
-        <PostItem {...frontmatter} link="https://www.google.co.kr/" key={id} />
+    <PostListWrapper ref={containerRef}>
+      {postList.map(({ node: { id, frontmatter } }: PostListItemType) => (
+        <PostItem {...frontmatter} link="" key={id} />
       ))}
     </PostListWrapper>
   )
