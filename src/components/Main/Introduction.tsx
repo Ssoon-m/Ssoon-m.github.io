@@ -1,7 +1,11 @@
-import React from "react"
-import styled from "@emotion/styled"
-import ProfileImage from "./ProfileImage"
+import React from 'react'
+import styled from '@emotion/styled'
+import ProfileImage from './ProfileImage'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
+type IntroductionProps = {
+  profileImage: IGatsbyImageData
+}
 const Background = styled.div`
   width: 100%;
   background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
@@ -41,11 +45,11 @@ const Title = styled.div`
   }
 `
 
-const Introduction: React.FC = function () {
+const Introduction: React.FC<IntroductionProps> = function ({ profileImage }) {
   return (
     <Background>
       <Wrapper>
-        <ProfileImage />
+        <ProfileImage profileImage={profileImage} />
 
         <div>
           <SubTitle>반갑습니다.</SubTitle>
