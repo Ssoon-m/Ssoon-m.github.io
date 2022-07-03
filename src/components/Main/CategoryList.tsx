@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { Link } from 'gatsby'
 
@@ -48,16 +48,22 @@ const CategoryItem = styled(({ active, ...props }: GatsbyLinkProps) => (
     font-size: 15px;
   }
 `
-
+let deployUrl = ''
 const CategoryList: React.FC<CategoryListProps> = function ({
   selectedCategory,
   categoryList,
 }) {
+  //MEMO: 배포 후 ssoonblog 붙여 주기 위함.
+  useEffect(() => {
+    if (window.location.hostname === 'ssoon-m.github.io') {
+      deployUrl = '/ssoonblog'
+    }
+  }, [])
   return (
     <CategoryListWrapper>
       {Object.entries(categoryList).map(([name, count]) => (
         <CategoryItem
-          to={`/?category=${name}`}
+          to={`${deployUrl}/?category=${name}`}
           active={name === selectedCategory}
           key={name}
         >

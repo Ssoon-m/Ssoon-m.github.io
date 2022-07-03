@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import styled from '@emotion/styled'
 import Introduction from '../components/Main/Introduction'
 import CategoryList from '../components/Main/CategoryList'
 import PostList from '../components/Main/PostList'
@@ -31,12 +30,6 @@ interface IndexPageProps {
     }
   }
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`
 
 const IndexPage: React.FC<IndexPageProps> = ({
   location: { search },
