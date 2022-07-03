@@ -1,4 +1,5 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
+
 export interface PostFrontmatterType {
   title: string
   date: string
@@ -8,6 +9,7 @@ export interface PostFrontmatterType {
     childImageSharp: {
       gatsbyImageData: IGatsbyImageData
     }
+    publicURL: string
   }
 }
 

@@ -10,6 +10,9 @@ type GatsbyImgProps = {
 }
 
 type PostHeadProps = {
+  title: string
+  date: string
+  categories: string
   thumbnail: IGatsbyImageData
 }
 
