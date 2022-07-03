@@ -6,6 +6,7 @@ module.exports = {
     siteUrl: `https://my-website-link.com`,
   },
   plugins: [
+    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
