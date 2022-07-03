@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://ssoon-m.github.io/sitemap/sitemap-index.xml
+Host: https://ssoon-m.github.io
