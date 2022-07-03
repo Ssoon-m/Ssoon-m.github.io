@@ -3,7 +3,7 @@ module.exports = {
     title: `주니어 개발자의 개발 블로그`,
     description: `주니어 개발자로서의 저를 표현한 블로그입니다.`,
     author: `soonmin`,
-    siteUrl: `https://my-website-link.com`,
+    siteUrl: `https://Ssoon-m.github.io/`,
   },
   plugins: [
     'gatsby-plugin-sitemap',
@@ -16,7 +16,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: '<https://my-website.com/>',
+        siteUrl: 'https://Ssoon-m.github.io/',
         stripQueryString: true,
       },
     },
