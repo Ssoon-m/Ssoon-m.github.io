@@ -2,7 +2,7 @@ import React, { createRef, useEffect } from 'react'
 import styled from '@emotion/styled'
 
 const src = 'https://utteranc.es/client.js'
-const repo = 'Ssoon-m/ssoonblog'
+const repo = 'Ssoon-m/Ssoon-m.github.io'
 
 type issueTerm = 'pathname' | 'title' | 'url'
 
