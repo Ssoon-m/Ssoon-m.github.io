@@ -92,12 +92,6 @@ const PostItem: React.FC<PostItemProps> = ({
   },
   link,
 }) => {
-  //MEMO: 배포 후 ssoonblog 붙여 주기 위함.
-  useEffect(() => {
-    if (window.location.hostname === 'ssoon-m.github.io') {
-      link = '/ssoonblog' + link
-    }
-  }, [])
   return (
     <PostItemWrapper to={link}>
       <ThumbnailImage image={gatsbyImageData} alt="Post Item Image" />

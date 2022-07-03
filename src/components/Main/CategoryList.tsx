@@ -53,12 +53,6 @@ const CategoryList: React.FC<CategoryListProps> = function ({
   selectedCategory,
   categoryList,
 }) {
-  //MEMO: 배포 후 ssoonblog 붙여 주기 위함.
-  useEffect(() => {
-    if (window.location.hostname === 'ssoon-m.github.io') {
-      deployUrl = '/ssoonblog'
-    }
-  }, [])
   return (
     <CategoryListWrapper>
       {Object.entries(categoryList).map(([name, count]) => (
