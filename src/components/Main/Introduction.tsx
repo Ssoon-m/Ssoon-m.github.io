@@ -52,8 +52,8 @@ const Introduction: React.FC<IntroductionProps> = function ({ profileImage }) {
         <ProfileImage profileImage={profileImage} />
 
         <div>
-          <SubTitle>반갑습니다.</SubTitle>
-          <Title>안녕하세요. 안녕하세요. 안녕하세요</Title>
+          <SubTitle>기록을 즐기자.</SubTitle>
+          <Title>어제보다 오늘이 더 나은 개발자가 되겠습니다.</Title>
         </div>
       </Wrapper>
     </Background>
